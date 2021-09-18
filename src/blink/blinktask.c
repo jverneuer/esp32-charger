@@ -14,6 +14,8 @@
 #include "sdkconfig.h"
 #include "config/config.h"
 
+// turning LED on and off in an intervall of 1 sec. 
+// copied from the documentation found somewhere here: https://www.espressif.com/en/products/socs/esp32/resources
 void blink(void* pvParameters){
     gpio_pad_select_gpio(BLINK_GPIO);
     /* Set the GPIO as a push/pull output */
@@ -23,7 +25,6 @@ void blink(void* pvParameters){
         gpio_set_level(BLINK_GPIO, 0);
         vTaskDelay(1000 / portTICK_PERIOD_MS);
         /* Blink on (output high) */
-	printf("Turning on the LED\n");
         gpio_set_level(BLINK_GPIO, 1);
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
