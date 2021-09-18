@@ -7,14 +7,12 @@
 #include "freertos/FreeRTOSConfig.h"
 #include "freertos/task.h"
 #include "config/config.h"
-#include "freertos/task.h"
+#include "helpers/helpers.h"
 
 
+TaskHandle_t xHandle = NULL; // holds a handle to the task to determine success or failure of starting it.
 
-TaskHandle_t xHandle = NULL;
-TaskStatus_t xTaskDetails;
-char ptrTaskList[250];
-
+// logs the success/no success of creating the tasks if global debug var is set to true
 void assertTaskCreateSuccess(BaseType_t xReturned){
     if(DEBUG){
         if( xReturned == pdPASS ){
@@ -28,20 +26,11 @@ void assertTaskCreateSuccess(BaseType_t xReturned){
 
 }
 
-void getTaskStatus(){
-    if(DEBUG){
-        while (1){
-            vTaskList(ptrTaskList);
-            printf("%s ", ptrTaskList);
-            vTaskDelay(2000 / portTICK_PERIOD_MS);
-        }
-    }
-}
-
+// main function tasks are started here, nothing than a simple entry point executed once on start
 void app_main(){
     assertTaskCreateSuccess(xTaskCreate(blink, "blink", 3000, NULL, 1, &xHandle));
+
     if(DEBUG){
         assertTaskCreateSuccess(xTaskCreate(getTaskStatus, "getTaskStatus", 3000, NULL, 1, &xHandle));
     }
 }
-
