@@ -109,12 +109,16 @@ void startWifi(void* pvParameters){
     } else {
         ESP_LOGE(TAG, "UNEXPECTED EVENT");
     }
-
-    /* The event will not be processed after unregister */
-    ESP_ERROR_CHECK(esp_event_handler_instance_unregister(IP_EVENT, IP_EVENT_STA_GOT_IP, instance_got_ip));
-    ESP_ERROR_CHECK(esp_event_handler_instance_unregister(WIFI_EVENT, ESP_EVENT_ANY_ID, instance_any_id));
-    vEventGroupDelete(s_wifi_event_group);
-
+    while (1){
+        if (bits & WIFI_CONNECTED_BIT){
+            vTaskDelay(10000 / portTICK_PERIOD_MS);
+        }
+        else{
+            //waiting one minute to retry
+            vTaskDelay(60000 / portTICK_PERIOD_MS);
+            s_retry_num = 0;
+        }
+    }
 }
 
 
