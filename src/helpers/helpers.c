@@ -17,4 +17,3 @@ void getTaskStatus(void* pvParameters){
         }
     }
 }
-
