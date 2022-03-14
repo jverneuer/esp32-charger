@@ -5,8 +5,6 @@
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_log.h"
-
-
 #include "config/config.h"
 
 
@@ -76,8 +74,7 @@ void startWifi(void* pvParameters){
             /* Setting a password implies station will connect to all security modes including WEP/WPA.
              * However these modes are deprecated and not advisable to be used. Incase your Access point
              * doesn't support WPA2, these mode can be enabled by commenting below line */
-	     .threshold.authmode = WIFI_AUTH_WPA2_PSK,
-
+	        .threshold.authmode = WIFI_AUTH_WPA2_PSK,
             .pmf_cfg = {
                 .capable = true,
                 .required = false
@@ -101,11 +98,9 @@ void startWifi(void* pvParameters){
     /* xEventGroupWaitBits() returns the bits before the call returned, hence we can test which event actually
      * happened. */
     if (bits & WIFI_CONNECTED_BIT) {
-        ESP_LOGI(TAG, "connected to ap SSID:%s password:%s",
-                 WIFI_SSID, WIFI_PASSWORD);
+        ESP_LOGI(TAG, "connected to ap SSID:%s",WIFI_SSID);
     } else if (bits & WIFI_FAIL_BIT) {
-        ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
-                 WIFI_SSID, WIFI_PASSWORD);
+        ESP_LOGI(TAG, "Failed to connect to SSID:%s", WIFI_SSID);
     } else {
         ESP_LOGE(TAG, "UNEXPECTED EVENT");
     }

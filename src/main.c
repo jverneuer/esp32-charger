@@ -14,6 +14,8 @@
 //tasks
 #include "blink/blinktask.h"
 #include "wifi/wifi.h"
+#include "drivers/ina260/drv_ina260.h"
+
 
 TaskHandle_t xHandle = NULL; // holds a handle to the task to determine success or failure of starting it.
 
