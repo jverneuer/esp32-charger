@@ -13,7 +13,7 @@ void getTaskStatus(void* pvParameters){
             char ptrTaskList[250];
             vTaskList(ptrTaskList);
             printf("%s ", ptrTaskList);
-            vTaskDelay(5000 / portTICK_PERIOD_MS);
+            vTaskDelay(10000 / portTICK_PERIOD_MS);
         }
     }
 }

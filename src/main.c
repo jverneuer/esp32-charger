@@ -14,7 +14,7 @@
 //tasks
 #include "blink/blinktask.h"
 #include "wifi/wifi.h"
-#include "drivers/ina260/drv_ina260.h"
+#include "sensing/ina260-sense.h"
 
 
 TaskHandle_t xHandle = NULL; // holds a handle to the task to determine success or failure of starting it.
@@ -46,6 +46,7 @@ void app_main(){
 
     assertTaskCreateSuccess(xTaskCreate(blink, "blink", 3000, NULL, 1, &xHandle));
     assertTaskCreateSuccess(xTaskCreate(startWifi, "wifi", 30000, NULL, 1, &xHandle));
+    assertTaskCreateSuccess(xTaskCreate(startIna, "startIna", 3000, NULL, 1, &xHandle));
     // tasks which are not needed for production use.
     if(DEBUG){
         // prints a table of all tasks including basic stats every few seconds or so

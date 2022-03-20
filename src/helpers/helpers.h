@@ -1,4 +1,4 @@
 #ifndef CHARGERHELPERS
-#define CHARGERHELPERS
+    #define CHARGERHELPERS
     void getTaskStatus(void* pvParameters);
 #endif
