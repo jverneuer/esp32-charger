@@ -1,11 +1,8 @@
 #ifndef CHARGERINA260
     #define CHARGERINA260
     #include <stdint.h>
-
+    #include <stdbool.h>
     //TODO: add missing polarity and alert latch options options 
-
-
-
     //defaulting to the Adafruit boards default adress as that's probably the most commonly used one 
     //out in the wild
     #define INA260_I2CADDR_DEFAULT 0x40;
@@ -97,8 +94,61 @@
         MODE_AVG_512 = 0x06,
         MODE_AVG_1024 = 0x07,
     } AveragingMode;
+
+    /*
+        the INA260 supports 16 adresses configured by the pins A0 and A1
+        A1	A0	SLAVE ADDRESS
+        GND	GND	1000000
+        GND	VS	1000001
+        GND	SDA	1000010
+        GND	SCL	1000011
+        VS	GND	1000100
+        VS	VS	1000101
+        VS	SDA	1000110
+        VS	SCL	1000111
+        SDA	GND	1001000
+        SDA	VS	1001001
+        SDA	SDA	1001010
+        SDA	SCL	1001011
+        SCL	GND	1001100
+        SCL	VS	1001101
+        SCL	SDA	1001110
+        SCL	SCL	1001111
+    */
+    typedef enum inaAdress {
+        ADDR_GND_GND = 0x40,
+        ADDR_GND_VS = 0x41,
+        ADDR_GND_SDA = 0x42,
+        ADDR_GND_SCL = 0x43,
+        ADDR_VS_GND = 0x44,
+        ADDR_VS_VS = 0x45,
+        ADDR_VS_SDA = 0x46,
+        ADDR_VS_SCL = 0x47,
+        ADDR_SDA_GND = 0x48,
+        ADDR_SDA_VS = 0x49,
+        ADDR_SDA_SDA = 0x4A,
+        ADDR_SDA_SCL = 0x4B,
+        ADDR_SCL_GND = 0x4C,
+        ADDR_SCL_VS = 0x4D,
+        ADDR_SCL_SDA = 0x4E,
+        ADDR_SCL_SCL = 0x4F,
+    } inaAdress;
+
+//   // definition of the ina's adress, can be extended to also contain multiplexer
+//   // setting to support multiple arrays of ina behind a multiplexer to extend amount of inas etc. 
+//   typedef struct INA260DEVICE {
+//       bool enabled;
+//       unsigned char addr;
+//   } INA260DEVICE;
+//   
+//
+
+//    INA260DEVICE inadevices[16];
+  //  = { 
+  //      {0x40, true}
+  //  };
+
     void startIna(void* pvParameters);
-        
     // struct Ina260;
     // static void initializeDefaults(int adress);
     // void initialize(int adress, OperatingMode opmode, AveragingMode avgmode, BusVoltageConversionTime vtime, CurrentConversionTime ctime);

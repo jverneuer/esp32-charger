@@ -12,8 +12,8 @@
 #include "helpers/helpers.h"
 
 //tasks
-#include "blink/blinktask.h"
 #include "wifi/wifi.h"
+#include "blink/blinktask.h"
 #include "sensing/ina260-sense.h"
 
 

@@ -41,22 +41,15 @@ static esp_err_t i2c_master_read_slave(i2c_port_t i2c_num, uint8_t deviceAddr, u
         i2c_master_read(cmd, data_rd, size - 1, ACK_VAL);
     }
     i2c_master_read_byte(cmd, data_rd + size - 1, NACK_VAL);
-    
-        //i2c_master_write_byte(cmd, (deviceAddr -1) | READ_BIT, ACK_CHECK_EN); //Select device
-    //i2c_master_write_byte(cmd, registerToRead, false); //Select register
-
     i2c_master_stop(cmd);
+    //execute the queue
     esp_err_t ret = i2c_master_cmd_begin(i2c_num, cmd, 1000 / portTICK_RATE_MS);
     i2c_cmd_link_delete(cmd);
     if (ret == ESP_OK) {
-        ESP_LOGI(TAG, "ESP OK");
-            printf("*******************\n");
-            printf("*******************\n");
-            //printf("data_h: %02x\n", &data_rd);
-            //printf("sensor val: %.02f [Lux]\n", (sensor_data_h << 8 | sensor_data_l) / 1.2);
+        ESP_LOGI(TAG, "ESP OK on device 0x%02x, reading register 0x%02x", deviceAddr, registerToRead);
     }
     else{
-        ESP_LOGE(TAG, "%s on device %d, reading register %d", esp_err_to_name(ret), deviceAddr, registerToRead);
+        ESP_LOGE(TAG, "%s on device 0x%02x, reading register 0x%02x", esp_err_to_name(ret), deviceAddr, registerToRead);
     }
     return ret;
 }
@@ -69,41 +62,38 @@ void startIna(void* pvParameters){
     ESP_LOGI(TAG, "starting i2c");
 
     while(1) {
-        printf("data_h : 0x%02x\n", MANUFACTURER_ID_REGISTER);
         i2c_master_read_slave(I2C_MASTER_NUM, 0x40, CONFIGURATION_REGISTER, data, INA260REGISTERSIZE);
          ESP_LOGI(TAG, "Response: 0x%02x%02x", data[0], data[1]);
-        vTaskDelay(5000 / portTICK_PERIOD_MS);
+        vTaskDelay(500 / portTICK_PERIOD_MS);
     }
 }
-
-
 
 static void initialize(int adress, OperatingMode opmode, AveragingMode avgmode, BusVoltageConversionTime vtime, CurrentConversionTime ctime){
     //todo pass 
 }
 
 //TODO calculate correct voltages for the current purpose
-static void initializeDefaults(int adress){
-    initialize(adress, MODE_ISH_VBUS_CONTINUOUS, MODE_AVG_128, CONV_332US, ISHCT_332US);
-}
-static float readCurrent(int deviceID){
-    return 1.0;
-}
-static float readVoltage(void){
-    return 1.0;
-}
-static float readPower(void){
-    return 1.0;
-}
-static void setOperatingMode(OperatingMode mode){
-
-}   
-static void setAveragingMode(AveragingMode mode){
-
-}
-static void setBusVoltageConversionTime(BusVoltageConversionTime time){
-
-}
-static void setCurrentConversionTime(CurrentConversionTime time){
-
-}
+//static void initializeDefaults(int adress){
+//    initialize(adress, MODE_ISH_VBUS_CONTINUOUS, MODE_AVG_128, CONV_332US, ISHCT_332US);
+//}
+//static float readCurrent(int deviceID){
+//    return 1.0;
+//}
+//static float readVoltage(void){
+//    return 1.0;
+//}
+//static float readPower(void){
+//    return 1.0;
+//}
+//static void setOperatingMode(OperatingMode mode){
+//
+//}   
+//static void setAveragingMode(AveragingMode mode){
+//
+//}
+//static void setBusVoltageConversionTime(BusVoltageConversionTime time){
+//
+//}
+//static void setCurrentConversionTime(CurrentConversionTime time){
+//
+//}
