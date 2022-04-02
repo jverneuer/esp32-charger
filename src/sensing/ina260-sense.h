@@ -32,6 +32,7 @@
     #define ACK_CHECK_DIS 0x0                       /*!< I2C master will not check ack from slave */
     #define ACK_VAL 0x0                             /*!< I2C ack value */
     #define NACK_VAL 0x1                            /*!< I2C nack value */
+
     // Selects continuous, triggered, or power-down mode of operation. These bits default to
     // continuous shunt and bus measurement mode. The following shows mode settings.
     // MODE2 = 0, MODE1 = 0, MODE0 = 0, mode = Power-Down (or Shutdown)
