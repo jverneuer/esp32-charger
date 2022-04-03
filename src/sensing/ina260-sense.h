@@ -2,7 +2,7 @@
     #define CHARGERINA260
     #include <stdint.h>
     #include <stdbool.h>
-    
+
     void startIna(void* pvParameters);
     // struct Ina260;
     // static void initializeDefaults(int adress);
@@ -16,6 +16,3 @@
     // void setCurrentConversionTime(CurrentConversionTime time);
 
 #endif
-
-//void inaTask(void* pvParameters);
-//#endif

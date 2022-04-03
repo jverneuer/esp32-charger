@@ -24,9 +24,9 @@ void startIna(void* pvParameters){
     }
 }
 
-static void initialize(int adress, OperatingMode opmode, AveragingMode avgmode, BusVoltageConversionTime vtime, CurrentConversionTime ctime){
-    //todo pass 
-}
+//static void initialize(int adress, OperatingMode opmode, AveragingMode avgmode, BusVoltageConversionTime vtime, CurrentConversionTime ctime){
+//    //todo pass 
+//}
 
 //TODO calculate correct voltages for the current purpose
 //static void initializeDefaults(int adress){

@@ -59,28 +59,13 @@ esp_err_t i2cReadRaw(i2c_port_t i2c_num, inaAdress deviceAddr, InaRegisters regi
     return ret;
 }
 
-
-//void startIna(void* pvParameters){
-//    char data[2];
-//    while(1) {
-//        int len = *(&INA216ADDRESS + 1) - INA216ADDRESS;
-//        for (int i = 0; i < len; i++) {
-//            i2cReadRaw(I2C_MASTER_NUM, INA216ADDRESS[i], CONFIGURATION_REGISTER, data, INA260REGISTERSIZE);
-//            ESP_LOGI(TAG, "Response: 0x%02x%02x from  0x%02x", data[0], data[1], INA216ADDRESS[i]);
-//        }
-//        
-//        vTaskDelay(500 / portTICK_PERIOD_MS);
-//    }
-//}
-
-
 void initI2c(){
     ESP_ERROR_CHECK(i2cInit());
     ESP_LOGI(TAG, "I2C initialized successfully");
 }
 
-static void initialize(int adress, OperatingMode opmode, AveragingMode avgmode, BusVoltageConversionTime vtime, CurrentConversionTime ctime){
-}
+// static void initialize(int adress, OperatingMode opmode, AveragingMode avgmode, BusVoltageConversionTime vtime, CurrentConversionTime ctime){
+// }
 
 //TODO calculate correct voltages for the current purpose
 //static void initializeDefaults(int adress){
